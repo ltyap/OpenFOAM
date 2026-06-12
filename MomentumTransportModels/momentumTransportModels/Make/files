@@ -1,0 +1,21 @@
+# Wall function BCs
+wallFunctions = derivedFvPatchFields/wallFunctions
+
+nutWallFunctions = $(wallFunctions)/nutWallFunctions
+$(nutWallFunctions)/nutWallFunction/nutWallFunctionFvPatchScalarField.C
+
+$(nutWallFunctions)/nutUCurvedWallFunction/nutUCurvedWallFunctionFvPatchScalarField.C
+$(nutWallFunctions)/nutkCurvedWallFunction/nutkCurvedWallFunctionFvPatchScalarField.C
+
+alphatWallFunctions = $(wallFunctions)/alphatWallFunctions
+$(alphatWallFunctions)/alphatJayatillekeWallFunction/alphatJayatillekeWallFunctionFvPatchScalarField.C
+$(alphatWallFunctions)/alphatWallFunction/alphatWallFunctionFvPatchScalarField.C
+
+omegaUWallFunctions = $(wallFunctions)/omegaUWallFunctions
+$(omegaUWallFunctions)/omegaUWallFunction/omegaUWallFunctionFvPatchScalarField.C
+
+epsilonThetaWallFunctions = $(wallFunctions)/epsilonThetaWallFunctions
+$(epsilonThetaWallFunctions)/epsilonThetaWallFunction/epsilonThetaWallFunctionFvPatchScalarField.C
+$(epsilonThetaWallFunctions)/epsilonTheta2WallFunction/epsilonTheta2WallFunctionFvPatchScalarField.C
+
+LIB = $(FOAM_USER_LIBBIN)/libmyMomentumTransportModels

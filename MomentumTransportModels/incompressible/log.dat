@@ -1,0 +1,123 @@
+Making dependency list for source file myKinematicMomentumTransportModels.C
+g++ -std=c++14 -m64 -Dlinux64 -DWM_ARCH_OPTION=64 -DWM_DP -DWM_LABEL_SIZE=32 -Wall -Wextra -Wold-style-cast -Wnon-virtual-dtor -Wno-unused-parameter -Wno-invalid-offsetof -Wno-attributes -O3  -DNoRepository -ftemplate-depth-100 -I../momentumTransportModels/lnInclude -I/opt/openfoam9/src/transportModels/lnInclude -I/opt/openfoam9/src/finiteVolume/lnInclude -I/opt/openfoam9/src/meshTools/lnInclude -I/opt/openfoam9/src/MomentumTransportModels/momentumTransportModels/lnInclude -I/opt/openfoam9/src/MomentumTransportModels/incompressible/lnInclude  -IlnInclude -I. -I/opt/openfoam9/src/OpenFOAM/lnInclude -I/opt/openfoam9/src/OSspecific/POSIX/lnInclude   -fPIC -c kinematicMomentumTransportModels/myKinematicMomentumTransportModels.C -o Make/linux64GccDPInt32Opt/kinematicMomentumTransportModels/myKinematicMomentumTransportModels.o
+In file included from ../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.H:345,
+                 from ../momentumTransportModels/lnInclude/kOmegaSSTPANS.H:74,
+                 from kinematicMomentumTransportModels/myKinematicMomentumTransportModels.C:37:
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C: In constructor ‘Foam::kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::kOmegaSSTPANS(const Foam::word&, const alphaField&, const rhoField&, const volVectorField&, const surfaceScalarField&, const surfaceScalarField&, const transportModel&)’:
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C:366:13: error: ‘fEpsInput_’ was not declared in this scope
+  366 |     fOmega_(fEpsInput_/fKInput_),
+      |             ^~~~~~~~~~
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C:366:24: error: ‘fKInput_’ was not declared in this scope
+  366 |     fOmega_(fEpsInput_/fKInput_),
+      |                        ^~~~~~~~
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C: In member function ‘virtual bool Foam::kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::read()’:
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C:457:9: error: ‘fKInput_’ was not declared in this scope
+  457 |         fKInput_.readIfPresent(this->coeffDict());
+      |         ^~~~~~~~
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C:458:9: error: ‘fEpsInput_’ was not declared in this scope
+  458 |         fEpsInput_.readIfPresent(this->coeffDict());
+      |         ^~~~~~~~~~
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C:459:9: error: ‘fOmegaInput_’ was not declared in this scope
+  459 |         fOmegaInput_ = fEpsInput_/fKInput_;
+      |         ^~~~~~~~~~~~
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C: In instantiation of ‘Foam::kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::kOmegaSSTPANS(const Foam::word&, const alphaField&, const rhoField&, const volVectorField&, const surfaceScalarField&, const surfaceScalarField&, const transportModel&) [with MomentumTransportModel = Foam::eddyViscosity<Foam::RASModel<Foam::IncompressibleMomentumTransportModel<Foam::kinematicTransportModel> > >; BasicMomentumTransportModel = Foam::IncompressibleMomentumTransportModel<Foam::kinematicTransportModel>; Foam::kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::alphaField = Foam::geometricOneField; Foam::kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::rhoField = Foam::geometricOneField; Foam::volVectorField = Foam::GeometricField<Foam::Vector<double>, Foam::fvPatchField, Foam::volMesh>; Foam::surfaceScalarField = Foam::GeometricField<double, Foam::fvsPatchField, Foam::surfaceMesh>; Foam::kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::transportModel = Foam::kinematicTransportModel]’:
+../momentumTransportModels/lnInclude/kOmegaSSTPANS.C:62:5:   required from ‘Foam::RASModels::kOmegaSSTPANS<BasicMomentumTransportModel>::kOmegaSSTPANS(const alphaField&, const rhoField&, const volVectorField&, const surfaceScalarField&, const surfaceScalarField&, const transportModel&, const Foam::word&) [with BasicMomentumTransportModel = Foam::IncompressibleMomentumTransportModel<Foam::kinematicTransportModel>; Foam::RASModels::kOmegaSSTPANS<BasicMomentumTransportModel>::alphaField = Foam::geometricOneField; Foam::RASModels::kOmegaSSTPANS<BasicMomentumTransportModel>::rhoField = Foam::geometricOneField; Foam::volVectorField = Foam::GeometricField<Foam::Vector<double>, Foam::fvPatchField, Foam::volMesh>; Foam::surfaceScalarField = Foam::GeometricField<double, Foam::fvsPatchField, Foam::surfaceMesh>; Foam::RASModels::kOmegaSSTPANS<BasicMomentumTransportModel>::transportModel = Foam::kinematicTransportModel]’
+/opt/openfoam9/src/MomentumTransportModels/momentumTransportModels/lnInclude/RASModel.H:100:9:   required from ‘static Foam::autoPtr<Foam::RASModel<BasicMomentumTransportModel> > Foam::RASModel<BasicMomentumTransportModel>::adddictionaryConstructorToTable<RASModelType>::New(const alphaField&, const rhoField&, const volVectorField&, const surfaceScalarField&, const surfaceScalarField&, const transportModel&) [with RASModelType = Foam::RASModels::kOmegaSSTPANS<Foam::IncompressibleMomentumTransportModel<Foam::kinematicTransportModel> >; BasicMomentumTransportModel = Foam::IncompressibleMomentumTransportModel<Foam::kinematicTransportModel>; Foam::RASModel<BasicMomentumTransportModel>::alphaField = Foam::geometricOneField; Foam::RASModel<BasicMomentumTransportModel>::rhoField = Foam::geometricOneField; Foam::volVectorField = Foam::GeometricField<Foam::Vector<double>, Foam::fvPatchField, Foam::volMesh>; Foam::surfaceScalarField = Foam::GeometricField<double, Foam::fvsPatchField, Foam::surfaceMesh>; Foam::RASModel<BasicMomentumTransportModel>::transportModel = Foam::kinematicTransportModel]’
+/opt/openfoam9/src/MomentumTransportModels/momentumTransportModels/lnInclude/RASModel.H:100:9:   required from ‘Foam::RASModel<BasicMomentumTransportModel>::adddictionaryConstructorToTable<RASModelType>::adddictionaryConstructorToTable(const Foam::word&) [with RASModelType = Foam::RASModels::kOmegaSSTPANS<Foam::IncompressibleMomentumTransportModel<Foam::kinematicTransportModel> >; BasicMomentumTransportModel = Foam::IncompressibleMomentumTransportModel<Foam::kinematicTransportModel>]’
+kinematicMomentumTransportModels/myKinematicMomentumTransportModels.C:38:1:   required from here
+../momentumTransportModels/lnInclude/kOmegaSSTPANSBase.C:430:5: error: no matching function for call to ‘Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>::GeometricField(Foam::IOobject, Foam::dimensionedScalar)’
+  430 |     )
+      |     ^
+In file included from /opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.H:678,
+                 from /opt/openfoam9/src/OpenFOAM/lnInclude/GeometricScalarField.H:38,
+                 from /opt/openfoam9/src/OpenFOAM/lnInclude/GeometricFields.H:34,
+                 from /opt/openfoam9/src/finiteVolume/lnInclude/volFields.H:37,
+                 from /opt/openfoam9/src/finiteVolume/lnInclude/nearWallDist.H:39,
+                 from /opt/openfoam9/src/MomentumTransportModels/momentumTransportModels/lnInclude/momentumTransportModel.H:43,
+                 from /opt/openfoam9/src/MomentumTransportModels/momentumTransportModels/lnInclude/MomentumTransportModel.H:38,
+                 from /opt/openfoam9/src/MomentumTransportModels/incompressible/lnInclude/IncompressibleMomentumTransportModel.H:39,
+                 from /opt/openfoam9/src/MomentumTransportModels/incompressible/lnInclude/kinematicMomentumTransportModels.H:26,
+                 from kinematicMomentumTransportModels/myKinematicMomentumTransportModels.C:26:
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:697:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Foam::tmp<Foam::GeometricField<Type, PatchField, GeoMesh> >&, const wordList&, const wordList&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::wordList = Foam::List<Foam::word>]’
+  697 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:697:1: note:   candidate expects 4 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:655:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Foam::GeometricField<Type, PatchField, GeoMesh>&, const wordList&, const wordList&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::wordList = Foam::List<Foam::word>]’
+  655 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:655:1: note:   candidate expects 4 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:621:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Foam::GeometricField<Type, PatchField, GeoMesh>&, const Foam::word&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh]’
+  621 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:621:1: note:   candidate expects 3 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:592:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::word&, const Foam::tmp<Foam::GeometricField<Type, PatchField, GeoMesh> >&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh]’
+  592 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:594:17: note:   no known conversion for argument 1 from ‘Foam::IOobject’ to ‘const Foam::word&’
+  594 |     const word& newName,
+      |     ~~~~~~~~~~~~^~~~~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:561:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::word&, const Foam::GeometricField<Type, PatchField, GeoMesh>&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh]’
+  561 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:563:17: note:   no known conversion for argument 1 from ‘Foam::IOobject’ to ‘const Foam::word&’
+  563 |     const word& newName,
+      |     ~~~~~~~~~~~~^~~~~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:530:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Foam::tmp<Foam::GeometricField<Type, PatchField, GeoMesh> >&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh]’
+  530 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:533:59: note:   no known conversion for argument 2 from ‘Foam::dimensionedScalar’ {aka ‘Foam::dimensioned<double>’} to ‘const Foam::tmp<Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh> >&’
+  533 |     const tmp<GeometricField<Type, PatchField, GeoMesh>>& tgf
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:499:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Foam::GeometricField<Type, PatchField, GeoMesh>&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh]’
+  499 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:502:54: note:   no known conversion for argument 2 from ‘Foam::dimensionedScalar’ {aka ‘Foam::dimensioned<double>’} to ‘const Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>&’
+  502 |     const GeometricField<Type, PatchField, GeoMesh>& gf
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:471:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::tmp<Foam::GeometricField<Type, PatchField, GeoMesh> >&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh]’
+  471 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:471:1: note:   candidate expects 1 argument, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:443:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(Foam::GeometricField<Type, PatchField, GeoMesh>&&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh]’
+  443 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:443:1: note:   candidate expects 1 argument, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:413:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::GeometricField<Type, PatchField, GeoMesh>&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh]’
+  413 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:413:1: note:   candidate expects 1 argument, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:378:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Mesh&, const Foam::dictionary&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::GeometricField<Type, PatchField, GeoMesh>::Mesh = Foam::fvMesh]’
+  378 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:378:1: note:   candidate expects 3 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:343:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Mesh&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::GeometricField<Type, PatchField, GeoMesh>::Mesh = Foam::fvMesh]’
+  343 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:346:17: note:   no known conversion for argument 2 from ‘Foam::dimensionedScalar’ {aka ‘Foam::dimensioned<double>’} to ‘const Mesh&’ {aka ‘const Foam::fvMesh&’}
+  346 |     const Mesh& mesh
+      |     ~~~~~~~~~~~~^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:317:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Mesh&, const Foam::dimensionSet&, const Foam::Field<Type>&, const Foam::PtrList<PatchField<Type> >&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::GeometricField<Type, PatchField, GeoMesh>::Mesh = Foam::fvMesh]’
+  317 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:317:1: note:   candidate expects 5 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:293:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Internal&, const Foam::PtrList<PatchField<Type> >&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::GeometricField<Type, PatchField, GeoMesh>::Internal = Foam::DimensionedField<double, Foam::volMesh>]’
+  293 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:293:1: note:   candidate expects 3 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:266:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Mesh&, const Foam::dimensioned<Type>&, const wordList&, const wordList&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::GeometricField<Type, PatchField, GeoMesh>::Mesh = Foam::fvMesh; Foam::wordList = Foam::List<Foam::word>]’
+  266 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:266:1: note:   candidate expects 5 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:240:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Mesh&, const Foam::dimensioned<Type>&, const Foam::word&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::GeometricField<Type, PatchField, GeoMesh>::Mesh = Foam::fvMesh]’
+  240 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:240:1: note:   candidate expects 4 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:215:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Mesh&, const Foam::dimensionSet&, const wordList&, const wordList&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::GeometricField<Type, PatchField, GeoMesh>::Mesh = Foam::fvMesh; Foam::wordList = Foam::List<Foam::word>]’
+  215 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:215:1: note:   candidate expects 5 arguments, 2 provided
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:191:1: note: candidate: ‘Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField(const Foam::IOobject&, const Mesh&, const Foam::dimensionSet&, const Foam::word&) [with Type = double; PatchField = Foam::fvPatchField; GeoMesh = Foam::volMesh; Foam::GeometricField<Type, PatchField, GeoMesh>::Mesh = Foam::fvMesh]’
+  191 | Foam::GeometricField<Type, PatchField, GeoMesh>::GeometricField
+      | ^~~~
+/opt/openfoam9/src/OpenFOAM/lnInclude/GeometricField.C:191:1: note:   candidate expects 4 arguments, 2 provided
+make: *** [/opt/openfoam9/wmake/rules/General/transform:26: Make/linux64GccDPInt32Opt/kinematicMomentumTransportModels/myKinematicMomentumTransportModels.o] Error 1
