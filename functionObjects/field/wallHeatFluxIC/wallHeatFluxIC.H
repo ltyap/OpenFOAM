@@ -26,20 +26,20 @@ Class
 
 Description
     Calculates and write the heat flux at wall patches as
-    the volVectorField field 'wallHeatFluxIC'.
+    the volVectorField field 'wallHeatFluxIC'. Only applicable to 
+    incompressible flow.
 
         \f[
-            Stress = R \dot n
+            Heat Flux = grad(T) \dot n
         \f]
 
     where
     \vartable
-        R       | stress tensor
-        n       | patch normal vector (into the domain)
+        grad(T)       | temperature gradient
+        n             | patch normal vector (into the domain)
     \endvartable
 
-    The shear-stress symmetric tensor field is retrieved from the turbulence
-    model.  All wall patches are included by default; to restrict the
+    All wall patches are included by default; to restrict the
     calculation to certain patches, use the optional 'patches' entry.
 
     Example of function object specification:
@@ -47,7 +47,7 @@ Description
     wallHeatFluxIC1
     {
         type        wallHeatFluxIC;
-        libs        ("libfieldFunctionObjects.so");
+        libs        ("libWhfFunctionObject.so");
         ...
         patches     (".*Wall");
     }
