@@ -29,21 +29,28 @@ Group
 
 Description
     Abe, Kondoh and Nagano's low-Reynolds number k-epsilon turbulence model
-    for incompressible flows
+    for incompressible flows, with heat transfer (scalar transport)
 	
-    Wall boundary conditions are:
+    Wall boundary conditions for the momentum field are:
 
         k       = 1e-10
         epsilon = epsilonWallFunction
-	
+    
+    Wall boundary conditions for the thermal field are:
+        
+        kTheta          = 1e-10
+        epsilonTheta    = epsilonTheta2WallFunction
+
 	
 	References:
 
-    Abe K., Kondoh T., Nagano Y., 1994. A new turbulence model for predicting
-	fluid flow and heat transfer in separating and reattaching flows-I. Flow
-	field calculations. Int. J. Heat and Mass Transfer 37(1), pp 138-151
+    Abe K., Kondoh T., Nagano Y., 1995. A new turbulence model for predicting
+	fluid flow and heat transfer in separating and reattaching flows-II. 
+    Thermal field calculations. Int. J. Heat and Mass Transfer 38(8), pp 1467-1481
 
-    The default model coefficients are given as:
+
+
+    The default model coefficients for the thermal model are given as:
     \verbatim
         AbeKondohNaganoKECoeffs
         {
@@ -56,6 +63,9 @@ Description
             sigmaKTheta          1.6;
         }
     \endverbatim
+
+See also
+    Foam::RAS::AbeKondohNaganoKE
 
 SourceFiles
     AKNHT.C
