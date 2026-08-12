@@ -28,7 +28,6 @@ License
 #include "fvConstraints.H"
 #include "bound.H"
 #include "wallDist.H"
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
@@ -130,7 +129,6 @@ kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::epsilonByk
     return betaStar_*omega_();
 }
 
-
 template<class MomentumTransportModel, class BasicMomentumTransportModel>
 tmp<fvScalarMatrix>
 kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::kSource() const
@@ -144,7 +142,6 @@ kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::kSource() co
         )
     );
 }
-
 
 template<class MomentumTransportModel, class BasicMomentumTransportModel>
 tmp<fvScalarMatrix>
@@ -357,6 +354,15 @@ kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::kOmegaSSTPAN
         this->mesh_,
         dimensionedScalar("fOmega", dimless, 1.0)
     ),
+    SSV_
+    (
+        Switch::lookupOrAddToDict
+        (
+            "SSV",
+            this->coeffDict_,
+            false
+        )
+    ),
 
     y_(wallDist::New(this->mesh_).y()),
 
@@ -386,6 +392,44 @@ kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::kOmegaSSTPAN
     )
 {
     fOmega_ = fEps_/fK_;
+    if (SSV_)
+    {
+        delta_ = LESdelta::New
+        (
+            IOobject::groupName("delta", alphaRhoPhi.group()),
+            *this,
+            this->coeffDict_
+        );
+
+        fKmodel_ = fKmodel::New
+        (
+            IOobject::groupName("fKmodel", alphaRhoPhi.group()),
+            *this,
+            this->coeffDict_
+        );
+
+        Cpans_ = dimensioned<scalar>::lookupOrAddToDict
+        (
+            "Cpans",
+            this->coeffDict_,
+            scalar(1)/sqrt(0.09)
+        );
+
+        kSSVPtr_ = std::make_unique<volScalarField>
+        (
+            IOobject
+            (
+                IOobject::groupName("kSSV", alphaRhoPhi.group()),
+                this->runTime_.timeName(),
+                this->mesh_,
+                IOobject::READ_IF_PRESENT,
+                IOobject::AUTO_WRITE
+            ),
+            this->mesh_
+        );
+        auto& kSSV = *kSSVPtr_;
+        bound(kSSV, this->kMin_);
+    }
     bound(k_, this->kMin_);
     bound(omega_, this->omegaMin_);
 }
@@ -417,8 +461,6 @@ bool kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::read()
         return false;
     }
 }
-
-
 
 template<class MomentumTransportModel, class BasicMomentumTransportModel>
 void kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::correct()
@@ -522,6 +564,66 @@ void kOmegaSSTPANS<MomentumTransportModel, BasicMomentumTransportModel>::correct
     solve(kEqn);
     fvConstraints.constrain(k_);
     bound(k_, this->kMin_);
+
+    if (SSV_)
+    {
+        volScalarField& kSSV{*kSSVPtr_};
+        const volScalarField& rfKminusOne{1/fK_ - 1};
+        tmp<volScalarField> tepsilon{epsilon()};
+        const volScalarField eps = tepsilon();
+
+        tmp<fvScalarMatrix> kSSVEqn
+        (
+            fvm::ddt(alpha, rho, kSSV)
+          + fvm::div(alphaRhoPhi, kSSV)
+          - fvm::laplacian(alpha*rho*DkEff(F1), kSSV)
+        ==
+            alpha()*rho()*rfKminusOne()*Pk(G)
+          - fvm::SuSp((2.0/3.0)*alpha()*rho()*divU, kSSV)
+          - fvm::Sp(alpha()*rho()*rfKminusOne()*eps()/kSSV(), kSSV)
+          + fvModels.source(alpha, rho, kSSV)
+        );
+
+        kSSVEqn.ref().relax();
+        fvConstraints.constrain(kSSVEqn.ref());
+        solve(kSSVEqn);
+        fvConstraints.constrain(kSSV);
+        bound(kSSV, this->kMin_);    
+
+
+        auto& fKmodel = *fKmodel_;
+        // tmp<volScalarField> tfK = fKmodel.calcFk(delta());
+        // fK_.primitiveFieldRef() = tfK().primitiveField();
+        fK_.primitiveFieldRef() = fKmodel.calcFk(delta());
+        // Calculate the turbulence length scale
+        // volScalarField lt_
+        // (
+        //     sqrt(k_ + kSSV)/(betaStar_*omega_)
+        // );
+
+
+        // // Foroutan and Yavuzkurt (2014)
+        // volScalarField ltByDelta23 = pow(lt_/delta(), 2.0/3.0);
+        // // Should be bounded between 0.0 and 1.0
+        // fK_.primitiveFieldRef() = 1.0 - pow(ltByDelta23/(0.23+ltByDelta23), 4.5);
+               
+
+        // fK_.primitiveFieldRef() = min
+        // (
+        //     Cpans_*pow(delta()/lt_, 2.0/3.0),
+        //     1.0
+        // );
+    
+
+        // update fOmega
+        fOmega_.primitiveFieldRef() = fEps_/fK_;
+
+
+        fK_.correctBoundaryConditions();
+        fOmega_.correctBoundaryConditions();
+    }
+
+
     correctNut(S2, F2);
 }
 

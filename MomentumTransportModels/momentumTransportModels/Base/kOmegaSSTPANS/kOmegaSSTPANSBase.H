@@ -25,8 +25,8 @@ Class
     Foam::kOmegaSSTPANS
 
 Description
-    Implementation of the k-omega-SST PANS turbulence model for
-    incompressible and compressible flows.
+    Implementation of the k-omega-SST PANS turbulence model with the scale-resolving kinetic energy equation
+    for incompressible and compressible flows.
 
     Turbulence model described in:
     \verbatim
@@ -92,21 +92,42 @@ Description
         }
     \endverbatim
 
+    The PANS model is described in:
+    \verbatim
+        F.S. Pereira, G. Vaz, L. Eça, S.S. Girimaji,
+        Simulation of the flow around a circular cylinder at Re=3900 with 
+        Partially-Averaged Navier-Stokes equations,
+        International Journal of Heat and Fluid Flow,
+        Volume 69, 2018
+    \endverbatim
+
+    The scale-supplying kinetic energy equation (kSSV) is described in:
+    \verbatim
+        Branislav Basara, Zoran Pavlovic, Sharath Girimaji,
+        A new approach for the calculation of the cut-off resolution parameter 
+        in bridging methods for turbulent flow simulation,
+        International Journal of Heat and Fluid Flow,
+        Volume 74, 2018.
+    \endverbatim
+
+
 SourceFiles
-    kOmegaSSTPANS.C
+    kOmegaSSTPANS_SSV.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef kOmegaSSTPANSBase_H
-#define kOmegaSSTPANSBase_H
-
+#ifndef kOmegaSSTPANSSSVBase_H
+#define kOmegaSSTPANSSSVBase_H
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include "LESdelta.H"
+#include "fKmodel.H"
+#include <memory>
 
 namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                          Class kOmegaSSTPANS Declaration
+                          Class kOmegaSSTPANS_SSV Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class MomentumTransportModel, class BasicMomentumTransportModel>
@@ -142,6 +163,11 @@ protected:
             volScalarField fEps_;
             volScalarField fOmega_;
 
+            bool SSV_;
+            autoPtr<Foam::LESdelta> delta_;
+            autoPtr<Foam::fKmodel> fKmodel_;
+            dimensionedScalar Cpans_;
+            
         // Fields
 
             //- Wall distance
@@ -151,6 +177,9 @@ protected:
 
             volScalarField k_;
             volScalarField omega_;
+
+            // scale-supplying kinetic energy for estimation of fK
+            std::unique_ptr<volScalarField> kSSVPtr_;
 
     // Protected Member Functions
 
@@ -271,6 +300,12 @@ public:
         //- Re-read model coefficients if they have changed
         virtual bool read();
 
+        //- Access function to filter width
+        inline const volScalarField& delta() const
+        {
+            return *delta_;
+        }
+ 
         //- Return the effective diffusivity for k
         tmp<volScalarField> DkEff(const volScalarField& F1) const
         {
