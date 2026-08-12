@@ -1,3 +1,14 @@
+LESdelta = LES/LESdeltas
+ 
+$(LESdelta)/minDeltaxyz/minDeltaxyz.C
+
+PANSfKmodel = PANS/fKmodels
+
+$(PANSfKmodel)/fKmodel/fKmodel.C
+$(PANSfKmodel)/GirimajiFk/GirimajiFk.C
+$(PANSfKmodel)/ChaouatSchiestel09Fk/ChaouatSchiestel09Fk.C
+
+
 # Wall function BCs
 wallFunctions = derivedFvPatchFields/wallFunctions
 
