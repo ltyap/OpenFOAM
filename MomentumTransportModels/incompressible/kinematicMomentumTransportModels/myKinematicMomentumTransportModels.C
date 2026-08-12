@@ -39,7 +39,7 @@ makeRASModel(AKNHT);
 
 #include "AKN_DWX.H"
 makeRASModel(AKN_DWX);
-
+/*
 #include "AbeKondohNaganoKE_HT.H"
 makeRASModel(AbeKondohNaganoKE_HT);
 
@@ -52,15 +52,17 @@ makeRASModel(AKNPANS);
 #include "AKN_MMPANS.H"
 makeRASModel(AKN_MMPANS);
 
-#include "kOmegaSSTPANS.H"
-makeRASModel(kOmegaSSTPANS);
-
 #include "kOmegaSST_HTPANS.H"
 makeRASModel(kOmegaSST_HTPANS);
+
+*/
+#include "kOmegaSSTPANS.H"
+makeRASModel(kOmegaSSTPANS);
 
 #include "kOmegaPANS.H"
 makeRASModel(kOmegaPANS);
 
+/*
 #include "QCRkOSST.H"
 makeRASModel(QCRkOSST);
 
@@ -69,6 +71,8 @@ makeRASModel(QCR24kOSST_PANS);
 
 #include "QCRkOSSTPANS.H"
 makeRASModel(QCRkOSSTPANS);
+*/
+
 // -------------------------------------------------------------------------- //
 // PANS models
 // -------------------------------------------------------------------------- //
